@@ -67,3 +67,49 @@ pub fn println(obj : Show) -> Unit {
   obj.to_string().iter().each(fn(ch) { print_char(ch) })
   print_char('\n')
 }
+
+/// Enumeration representing standard streams.
+pub enum StdStream {
+  Stdin
+  Stdout
+  Stderr
+}
+
+fn StdStream::to_int(self : StdStream) -> Int {
+  match self {
+    Stdin => 0
+    Stdout => 1
+    Stderr => 2
+  }
+}
+
+fn __flush(fd : Int) -> Unit = "__moonbit_io_unstable" "flush"
+
+fn __write_char(fd : Int, c : Char) -> Unit = "__moonbit_io_unstable" "write_char"
+
+/// Flushes the specified standard stream.
+///
+/// # Parameters
+/// - `fd`: A `StdStream` representing the standard stream to be flushed.
+pub fn flush(fd : StdStream) -> Unit {
+  __flush(fd.to_int())
+}
+
+/// Writes a displayable object to the specified standard stream.
+///
+/// # Parameters
+/// - `fd`: A `StdStream` representing the standard stream.
+/// - `obj`: The object to be written. The object must implement the `Show` trait.
+pub fn write(fd : StdStream, obj : Show) -> Unit {
+  obj.to_string().iter().each(fn(ch) { __write_char(fd.to_int(), ch) })
+}
+
+/// Writes a displayable object to the specified standard stream, followed by a newline.
+///
+/// # Parameters
+/// - `fd`: A `StdStream` representing the standard stream.
+/// - `obj`: The object to be written. The object must implement the `Show` trait.
+pub fn writeln(fd : StdStream, obj : Show) -> Unit {
+  write(fd, obj)
+  write(fd, '\n')
+}
