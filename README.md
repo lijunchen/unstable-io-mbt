@@ -2,6 +2,9 @@
 
 Currently, it only works with the `wasm-gc` backend in `moonrun`.
 
+⚠️ **Warning**: The current API is provisional, not well designed, and only
+intended for basic functionality. Use it at your own risk.
+
 ## Usage
 
 Assume you have already created a MoonBit project by `moon new`. Use the
@@ -73,6 +76,8 @@ args: [a, b, c]
 
 ### Environment Variables
 
+`./main/moon.pkg.json`:
+
 ```json
 {
     "is-main": true,
@@ -81,6 +86,8 @@ args: [a, b, c]
     ]
 }
 ```
+
+`./main/main.mbt`:
 
 ```moonbit
 fn main {
