@@ -44,6 +44,33 @@ fn main {
 $ moon run main
 ```
 
+### CLI args
+
+`./main/moon.pkg.json`:
+
+```json
+{
+    "is-main": true,
+    "import": [
+        "lijunchen/unstable_io/env"
+    ]
+}
+```
+
+`./main/main.mbt`:
+
+```moonbit
+fn main {
+  let args = @env.get_args()
+  println("args: \(args)")
+}
+```
+
+```bash
+$ moon run main -- a b c
+args: [a, b, c]
+```
+
 ### Environment Variables
 
 ```json
