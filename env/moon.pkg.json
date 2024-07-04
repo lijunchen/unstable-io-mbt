@@ -1,0 +1,5 @@
+{
+    "import": [
+        "lijunchen/unstable_io/internal/ffi"
+    ]
+}
